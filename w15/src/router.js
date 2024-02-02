@@ -1,6 +1,4 @@
 
-// router.js
-// router.js
 import MainPage from "./pages/MainPage";
 import FactPage from "./pages/FactPage";
 import AboutPage from "./pages/AboutPage";
