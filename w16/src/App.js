@@ -1,5 +1,4 @@
 
-// App.js
 import React from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { router } from './router';

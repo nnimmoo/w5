@@ -1,14 +1,19 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { AUTH } from '../api/api';
+import { useLanguage } from '../LanguageContext';
+import { Link } from 'react-router-dom';
+
 function AddPage(props) {
+  const { translate } = useLanguage();
   const [formData, setFormData] = useState({
     taskname: '',
     name: '',
     surname: '',
     deadline: '',
-    // status: ''
+    status: 'pending' // Initial status set to 'pending'
   });
+  const [alertMessage, setAlertMessage] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -20,58 +25,83 @@ function AddPage(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData)
-    
+
     const headers = {
       'Authorization': `Bearer ${AUTH}`,
-      'Content-Type': 'application/json' // Assuming JSON data is being sent
+      'Content-Type': 'application/json'
     };
 
     try {
       const response = await axios.post('https://crudapi.co.uk/api/v1/task', JSON.stringify([formData]), { headers });
       console.log('POST response:', response.data);
       // Handle successful response here
+      setAlertMessage('Post successful');
+      setFormData({
+        taskname: '',
+        name: '',
+        surname: '',
+        deadline: '',
+        status: 'pending'
+      });
     } catch (error) {
       console.error('Error:', error);
+      setAlertMessage('Post failed');
     }
   };
 
-
   return (
-    <div>
-      <h2>Submission Form</h2>
+    <div className="form-container">
+      <h2>{translate('addTask')}</h2>
       <form onSubmit={handleSubmit}>
-        <label>
-          Task Name:
-          <input type="text" name="taskname" value={formData.taskname} onChange={handleChange} />
-        </label>
+        <div className="form-group">
+          <label className="form-label">{translate('taskName')}:</label>
+          <input
+            className="form-input"
+            type="text"
+            name="taskname"
+            value={formData.taskname}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="form-group">
+          <label className="form-label">{translate('userName')}:</label>
+          <input
+            className="form-input"
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="form-group">
+          <label className="form-label">{translate('userSurname')}:</label>
+          <input
+            className="form-input"
+            type="text"
+            name="surname"
+            value={formData.surname}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="form-group">
+          <label className="form-label">{translate('taskDeadline')}:</label>
+          <input
+            className="form-input"
+            type="date"
+            name="deadline"
+            value={formData.deadline}
+            onChange={handleChange}
+          />
+        </div>
+
+        <button className="form-button" type="submit">{translate('submit')}</button>
         <br />
-        <label>
-          Name:
-          <input type="text" name="name" value={formData.name} onChange={handleChange} />
-        </label>
-        <br />
-        <label>
-          Surname:
-          <input type="text" name="surname" value={formData.surname} onChange={handleChange} />
-        </label>
-        <br />
-        <label>
-          Deadline:
-          <input type="date" name="deadline" value={formData.deadline} onChange={handleChange} />
-        </label>
-        <br />
-        {/* <label>
-          Status:
-          <select name="status" value={formData.status} onChange={handleChange}>
-            <option value="pending">Pending</option>
-            <option value="in-progress">In Progress</option>
-            <option value="completed">Completed</option>
-          </select>
-        </label> */}
-        <br />
-        <button type="submit">Submit</button>
+        <Link to="/">{translate('goBack')}</Link>
       </form>
+      {alertMessage && <div>{alertMessage}</div>}
     </div>
   );
 }
