@@ -1,8 +1,8 @@
 import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-export default function PhotoDisplay() {
-
+export default function PhotoDisplay({name}) {
+    console.log(name);
     return (
         <View style={styles.container}>
             <View style={styles.images}>
@@ -17,7 +17,9 @@ export default function PhotoDisplay() {
 
 
             <View style={styles.textContainer}>
-                <Text style={styles.title}> New User </Text>
+                <View>
+                    <Text style={styles.title}>{name}</Text>
+                </View>
                 <Text style={styles.bio}>This is my Bio</Text>
             </View>
         </View>
@@ -45,21 +47,21 @@ const styles = StyleSheet.create({
     backgroundContainer: {
         height: 200,
         width: '92%',
-       
+
     },
     backgroundImage: {
         width: '100%',
         height: '100%',
         position: 'absolute',
-         borderRadius: 10,
+        borderRadius: 10,
     },
 
     imageContainer: {
         alignItems: 'center',
         position: "absolute",
         top: 135,
-        left: "50%", 
-        marginLeft: -65, 
+        left: "50%",
+        marginLeft: -65,
     },
 
 
@@ -67,7 +69,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'flex-end',
-       
+
     },
 
     title: {

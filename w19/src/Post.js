@@ -1,31 +1,38 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import React from 'react';
+import { StyleSheet, Text, View, Image } from 'react-native';
 
-export default function Footer() {
-
+export default function Post({ title, date, imageUrl }) {
     return (
         <View style={styles.container}>
-    
+            <Text style={styles.title}>{title}</Text>
+            <Text style={styles.date}>{date}</Text>
+            <Image source={{ uri: imageUrl }} style={styles.image} />
         </View>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
-        flexDirection: 'row',
         backgroundColor: 'white',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        paddingHorizontal: 20,
-        width: '100%',
-        borderTopColor: 'gray',
-        borderTopWidth: 1,
-        height: 50,
-    },
-    button: {
-        backgroundColor: 'transparent',
-        borderRadius: 30,
         padding: 10,
+        marginBottom: 10,
+        borderBottomWidth: 1,
+        borderBottomColor: 'gray',
+    },
+    title: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        marginBottom: 5,
+    },
+    date: {
+        fontSize: 14,
+        color: 'gray',
+        marginBottom: 5,
+    },
+    image: {
+        width: '100%',
+        height: 200,
+        resizeMode: 'cover',
+        borderRadius: 10,
     },
 });

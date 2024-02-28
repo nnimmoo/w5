@@ -1,33 +1,23 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
-import Header from './src/header';
-import PhotoDisplay from './src/photoDisplay';
-import About from './src/about';
-import StoryDisplay from './src/storyDisplay';
-import Footer from './src/footer';
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Header />
-      <ScrollView vertical={true} style={styles.ScrollView} >
-        <PhotoDisplay />
-        <About />
-        <StoryDisplay />
+import * as React from 'react';
+import { Button, View, Text } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import User from './screens/User';
+import Login from './screens/Login';
 
-      </ScrollView>
-      <Footer />
-    </View>
+
+
+const Stack = createNativeStackNavigator();
+
+function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Login">
+        <Stack.Screen  options={{ headerShown: false }} name="User" component={User} />
+        <Stack.Screen  options={{ headerShown: false }} name="Login" component={Login} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'white',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  ScrollView: {
-    width: '100%'
-  }
-});
+export default App;

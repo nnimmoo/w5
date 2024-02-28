@@ -1,22 +1,24 @@
+import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
-export default function Header() {
-    const onPressPlus = () => {
-        // Define the behavior for the plus button press here
-    };
+export default function Header({ name }) {
+    const navigation = useNavigation(); // Hook to access navigation properties
 
     const onPressGoBack = () => {
-        // Define the behavior for the go back button press here
+        navigation.goBack(); // Go back when the button is pressed
     };
 
     return (
         <View style={styles.container}>
-            <TouchableOpacity onPress={onPressGoBack} style={styles.button}>
+            <TouchableOpacity style={styles.button} onPress={onPressGoBack}>
                 <Ionicons name="arrow-back" size={24} color="black" />
             </TouchableOpacity>
-            <Text style={styles.title}>User Name</Text>
-            <TouchableOpacity onPress={onPressPlus} style={styles.button}>
+            <View>
+                <Text style={styles.title}>{name}</Text>
+            </View>
+            <TouchableOpacity style={styles.button}>
                 <Ionicons name="add-circle-outline" size={24} color="black" />
             </TouchableOpacity>
         </View>
@@ -34,12 +36,15 @@ const styles = StyleSheet.create({
         borderBottomColor: 'gray',
         borderBottomWidth: 1,
         height: 70,
-        paddingTop:20
+        paddingTop: 20
     },
     button: {
         backgroundColor: 'transparent',
         borderRadius: 30,
         padding: 10,
+    },
+    titleContainer: {
+        flex: 1, // Allow the title to take remaining space
     },
     title: {
         fontSize: 18,
